@@ -1,0 +1,174 @@
+{
+  "info": {
+    "name": "Merchant Management API",
+    "description": "Collection of API requests for Merchant Management System",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get All Merchants",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/api/merchants/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "merchants", ""]
+        }
+      }
+    },
+    {
+      "name": "Create Merchant",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Tech Solutions Inc\",\n  \"business_registration_number\": \"BRN123456\",\n  \"email\": \"contact@techsolutions.com\",\n  \"phone\": \"+1234567890\",\n  \"status\": \"Active\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/api/merchants/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "merchants", ""]
+        }
+      }
+    },
+    {
+      "name": "Get Merchant by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/api/merchants/1/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "merchants", "1", ""]
+        }
+      }
+    },
+    {
+      "name": "Update Merchant",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Tech Solutions Ltd\",\n  \"business_registration_number\": \"BRN123456\",\n  \"email\": \"info@techsolutions.com\",\n  \"phone\": \"+1234567890\",\n  \"status\": \"Active\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/api/merchants/1/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "merchants", "1", ""]
+        }
+      }
+    },
+    {
+      "name": "Partial Update Merchant",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"Suspended\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/api/merchants/1/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "merchants", "1", ""]
+        }
+      }
+    },
+    {
+      "name": "Delete Merchant",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/api/merchants/1/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "merchants", "1", ""]
+        }
+      }
+    },
+    {
+      "name": "Get Statistics",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/api/merchants/statistics/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "merchants", "statistics", ""]
+        }
+      }
+    },
+    {
+      "name": "Filter by Status",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/api/merchants/?status=Active",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "merchants", ""],
+          "query": [
+            {
+              "key": "status",
+              "value": "Active"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Search Merchants",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/api/merchants/?search=tech",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "merchants", ""],
+          "query": [
+            {
+              "key": "search",
+              "value": "tech"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
