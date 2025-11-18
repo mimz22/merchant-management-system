@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Global input fixes */
+input, textarea, select {
+  cursor: text !important;
+  caret-color: #000 !important;
+  color: #000 !important;
+  background-color: #fff !important;
+  -webkit-user-select: text !important;
+  user-select: text !important;
+}
+
+input:focus, textarea:focus, select:focus {
+  cursor: text !important;
+  caret-color: #000 !important;
+  color: #000 !important;
+}
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-lg font-medium transition-colors duration-200;
+  }
+  
+  .btn-primary {
+    @apply bg-primary text-white hover:bg-blue-600;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary text-white hover:bg-slate-600;
+  }
+  
+  .btn-danger {
+    @apply bg-danger text-white hover:bg-red-600;
+  }
+  
+  .input {
+    @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent;
+    cursor: text !important;
+    caret-color: #000 !important;
+    color: #000 !important;
+    background-color: #fff !important;
+  }
+  
+  .input:focus {
+    cursor: text !important;
+    caret-color: #000 !important;
+    color: #000 !important;
+  }
+  
+  .card {
+    @apply bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200/50 p-8;
+  }
+  
+  .glass {
+    @apply bg-white/20 backdrop-blur-md border border-white/30 rounded-2xl shadow-xl;
+  }
+}
