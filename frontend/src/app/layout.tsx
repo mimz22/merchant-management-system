@@ -5,12 +5,23 @@ import './globals.css'
 
 const montserrat = Montserrat({ 
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700', '800']
+  weight: ['100', '200', '300', '400', '500', '600', '700']
 })
 
 export const metadata: Metadata = {
-  title: 'Merchant Management System',
-  description: 'Manage your merchants efficiently',
+  title: 'MerchantHub - Premium Business Management Platform',
+  description: 'Luxury merchant management platform for sophisticated businesses. Advanced analytics, seamless operations, and intelligent insights for discerning entrepreneurs.',
+  keywords: 'luxury merchant management, premium business platform, sophisticated analytics, MerchantHub, high-end merchant solutions',
+  authors: [{ name: 'MerchantHub' }],
+  openGraph: {
+    title: 'MerchantHub - Premium Business Management',
+    description: 'Elevate your business with our luxury merchant management platform',
+    type: 'website',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 }
 
 export default function RootLayout({
@@ -20,7 +31,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
-      <body className={montserrat.className}>
+      <body className={`${montserrat.className} bg-black text-white antialiased`}>
         {children}
         <script dangerouslySetInnerHTML={{
           __html: `

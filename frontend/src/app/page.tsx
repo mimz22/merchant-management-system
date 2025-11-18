@@ -70,30 +70,41 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 relative">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 20% 20%, #1e40af 0%, transparent 40%), radial-gradient(circle at 80% 80%, #7c3aed 0%, transparent 40%), radial-gradient(circle at 40% 70%, #059669 0%, transparent 30%)`,
-          backgroundSize: '600px 600px'
-        }}></div>
+    <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Moving Background Pattern */}
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `
+              linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.08) 50%, transparent 70%),
+              linear-gradient(-45deg, transparent 30%, rgba(255,255,255,0.08) 50%, transparent 70%),
+              radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 0%, transparent 60%),
+              radial-gradient(circle at 80% 70%, rgba(255,255,255,0.1) 0%, transparent 60%)
+            `,
+            backgroundSize: '150px 150px, 150px 150px, 300px 300px, 300px 300px',
+            animation: 'moveBackground 15s linear infinite'
+          }}></div>
+        </div>
+        <div className="absolute top-1/4 left-1/4 w-32 h-32 border border-white/20 rotate-45 animate-pulse"></div>
+        <div className="absolute bottom-1/3 right-1/3 w-24 h-24 border border-white/15 rotate-12 animate-pulse" style={{animationDelay: '1s'}}></div>
+        <div className="absolute top-2/3 left-1/6 w-16 h-16 border border-white/15 -rotate-12 animate-pulse" style={{animationDelay: '2s'}}></div>
       </div>
       <div className="relative z-10">
         {/* Top Navigation */}
-        <nav className="bg-gray-800/90 backdrop-blur-sm border-b border-gray-700 shadow-sm sticky top-0 z-40">
+        <nav className="bg-black/95 backdrop-blur-md border-b border-amber-500/20 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-8">
               <button 
                 onClick={() => {
                   setActiveTab('home');
-                  router.push('?tab=home');
+                  router.push('/');
+                  window.location.reload();
                 }}
-                className="text-2xl font-bold text-white hover:text-blue-400 transition-colors flex items-center gap-1"
+                className="text-2xl font-light text-white hover:text-amber-300 transition-all duration-500 tracking-wider cursor-pointer"
               >
-                <span>Merchant</span>
-                <span className="text-blue-400 font-black">HUB</span>
-                <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                <span className="font-thin">MERCHANT</span>
+                <span className="text-amber-400 font-extralight mx-1">HUB</span>
               </button>
               <div className="flex space-x-1">
                 {['home', 'dashboard', 'merchants', 'analytics'].map((tab) => (
@@ -103,10 +114,10 @@ export default function Home() {
                       setActiveTab(tab);
                       router.push(`?tab=${tab}`);
                     }}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                    className={`px-6 py-2 text-sm font-light tracking-wide transition-all duration-300 ${
                       activeTab === tab
-                        ? 'bg-blue-600 text-white'
-                        : 'text-gray-300 hover:text-blue-400 hover:bg-gray-700'
+                        ? 'text-amber-400 border-b border-amber-400'
+                        : 'text-gray-400 hover:text-white'
                     }`}
                   >
                     {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -116,10 +127,10 @@ export default function Home() {
             </div>
             <button
               onClick={() => setShowForm(!showForm)}
-              className="bg-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center gap-2"
+              className="bg-gradient-to-r from-amber-600 to-amber-500 text-black px-8 py-2 font-light tracking-wide hover:from-amber-500 hover:to-amber-400 transition-all duration-300 flex items-center gap-2"
             >
-              <span>+</span>
-              New Merchant
+              <span className="text-xs">+</span>
+              <span>ADD MERCHANT</span>
             </button>
           </div>
         </div>
@@ -129,31 +140,32 @@ export default function Home() {
       <main className="max-w-7xl mx-auto px-6 py-8">
         {activeTab === 'home' && (
           <div className="text-center space-y-12">
-            <div className="space-y-6">
-              <h1 className="text-6xl font-bold text-white leading-tight">
-                Scale Your Business
-                <span className="block text-transparent bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text">
-                  Effortlessly
+            <div className="space-y-8">
+              <h1 className="text-7xl font-thin text-white leading-none tracking-wider">
+                <span className="block">ELEVATE</span>
+                <span className="block text-transparent bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 bg-clip-text font-extralight">
+                  EXCELLENCE
                 </span>
               </h1>
-              <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
-                The all-in-one platform that transforms how you manage merchants. Real-time analytics, seamless operations, and intelligent insights—all in one place.
+              <p className="text-lg text-gray-400 max-w-xl mx-auto leading-relaxed font-light tracking-wide">
+                Premium merchant management for discerning businesses. 
+                <span className="text-amber-400">Sophisticated</span> analytics, 
+                <span className="text-amber-400">seamless</span> operations, 
+                <span className="text-amber-400">unparalleled</span> insights.
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mt-20">
               <button
                 onClick={() => {
                   setActiveTab('dashboard');
                   router.push('?tab=dashboard');
                 }}
-                className="bg-gray-800 border border-gray-700 rounded-xl p-8 hover:shadow-xl hover:shadow-blue-500/10 transition-all text-left w-full"
+                className="group bg-black/40 border border-amber-500/20 backdrop-blur-sm p-10 hover:border-amber-400/40 transition-all duration-500 text-left w-full"
               >
-                <div className="w-12 h-12 bg-blue-900/50 rounded-lg flex items-center justify-center mb-6">
-                  <span className="text-blue-400 text-xl">📊</span>
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-4">Dashboard Analytics</h3>
-                <p className="text-gray-300 leading-relaxed">Real-time insights and comprehensive analytics to track your merchant performance.</p>
+                <div className="w-1 h-12 bg-gradient-to-b from-amber-400 to-amber-600 mb-8 group-hover:h-16 transition-all duration-300"></div>
+                <h3 className="text-lg font-light text-white mb-4 tracking-wider">DASHBOARD</h3>
+                <p className="text-gray-500 leading-relaxed font-light text-sm">Executive overview and key metrics</p>
               </button>
               
               <button
@@ -161,13 +173,11 @@ export default function Home() {
                   setActiveTab('merchants');
                   router.push('?tab=merchants');
                 }}
-                className="bg-gray-800 border border-gray-700 rounded-xl p-8 hover:shadow-xl hover:shadow-green-500/10 transition-all text-left w-full"
+                className="group bg-black/40 border border-amber-500/20 backdrop-blur-sm p-10 hover:border-amber-400/40 transition-all duration-500 text-left w-full"
               >
-                <div className="w-12 h-12 bg-green-900/50 rounded-lg flex items-center justify-center mb-6">
-                  <span className="text-green-400 text-xl">🏪</span>
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-4">Merchant Management</h3>
-                <p className="text-gray-300 leading-relaxed">Efficiently manage all your merchants with advanced filtering and organization tools.</p>
+                <div className="w-1 h-12 bg-gradient-to-b from-amber-400 to-amber-600 mb-8 group-hover:h-16 transition-all duration-300"></div>
+                <h3 className="text-lg font-light text-white mb-4 tracking-wider">MANAGEMENT</h3>
+                <p className="text-gray-500 leading-relaxed font-light text-sm">Effortless merchant portfolio control</p>
               </button>
               
               <button
@@ -175,27 +185,23 @@ export default function Home() {
                   setActiveTab('analytics');
                   router.push('?tab=analytics');
                 }}
-                className="bg-gray-800 border border-gray-700 rounded-xl p-8 hover:shadow-xl hover:shadow-purple-500/10 transition-all text-left w-full"
+                className="group bg-black/40 border border-amber-500/20 backdrop-blur-sm p-10 hover:border-amber-400/40 transition-all duration-500 text-left w-full"
               >
-                <div className="w-12 h-12 bg-purple-900/50 rounded-lg flex items-center justify-center mb-6">
-                  <span className="text-purple-400 text-xl">📈</span>
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-4">Growth Analytics</h3>
-                <p className="text-gray-300 leading-relaxed">Advanced reporting and insights to drive strategic business decisions.</p>
+                <div className="w-1 h-12 bg-gradient-to-b from-amber-400 to-amber-600 mb-8 group-hover:h-16 transition-all duration-300"></div>
+                <h3 className="text-lg font-light text-white mb-4 tracking-wider">ANALYTICS</h3>
+                <p className="text-gray-500 leading-relaxed font-light text-sm">Advanced charts and data insights</p>
               </button>
             </div>
             
-            <div className="mt-16">
+            <div className="mt-20">
               <button
                 onClick={() => {
                   setActiveTab('dashboard');
                   router.push('?tab=dashboard');
                 }}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-10 py-4 rounded-xl font-bold text-lg hover:from-blue-700 hover:to-purple-700 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-3 mx-auto"
+                className="bg-gradient-to-r from-amber-600 to-amber-500 text-black px-12 py-4 font-light text-sm tracking-[0.2em] hover:from-amber-500 hover:to-amber-400 transition-all duration-500 mx-auto block"
               >
-                <span className="text-xl">🚀</span>
-                Get Started
-                <span className="text-sm">→</span>
+                ENTER PLATFORM
               </button>
             </div>
           </div>
@@ -205,8 +211,8 @@ export default function Home() {
           <div className="space-y-8">
             <div className="flex justify-between items-center">
               <div>
-                <h2 className="text-4xl font-bold text-white mb-2">Dashboard</h2>
-                <p className="text-gray-300">Welcome back! Here's what's happening with your merchants today.</p>
+                <h2 className="text-4xl font-thin text-white mb-2 tracking-wider">DASHBOARD</h2>
+                <p className="text-gray-500 font-light">Your merchant empire at a glance</p>
               </div>
               <div className="flex gap-3">
                 <button
@@ -214,86 +220,78 @@ export default function Home() {
                     setActiveTab('merchants');
                     router.push('?tab=merchants');
                   }}
-                  className="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors text-sm"
+                  className="border border-amber-500/30 text-amber-400 px-6 py-2 hover:bg-amber-500/10 transition-all duration-300 text-xs tracking-wider"
                 >
-                  View All
+                  VIEW ALL
                 </button>
                 <button
                   onClick={() => setShowForm(true)}
-                  className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm flex items-center gap-2"
+                  className="bg-amber-600 text-black px-6 py-2 hover:bg-amber-500 transition-all duration-300 text-xs tracking-wider"
                 >
-                  <span>+</span> Add Merchant
+                  ADD MERCHANT
                 </button>
               </div>
             </div>
             
-            <Statistics onFilterChange={(status) => {
-              setStatusFilter(status);
-              setActiveTab('merchants');
-              const params = new URLSearchParams();
-              params.set('tab', 'merchants');
-              if (status) params.set('filter', status);
-              router.push(`?${params.toString()}`);
-            }} />
-            
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <div className="lg:col-span-2">
-                <div className="bg-gray-800 border border-gray-700 rounded-xl shadow-xl overflow-hidden">
-                  <div className="px-6 py-4 border-b border-gray-700 flex justify-between items-center">
-                    <h3 className="text-lg font-semibold text-white">Recent Activity</h3>
-                    <span className="text-sm text-gray-400">Last 5 merchants</span>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div className="bg-black/40 border border-amber-500/20 backdrop-blur-sm p-8">
+                <h3 className="text-2xl font-light text-white mb-6 tracking-wider">PERFORMANCE</h3>
+                <div className="space-y-6">
+                  <div className="flex justify-between items-center py-4 border-b border-amber-500/10">
+                    <span className="text-gray-400 font-light">Total Revenue</span>
+                    <span className="text-2xl font-thin text-amber-400">$2.4M</span>
                   </div>
-                  <MerchantList
-                    merchants={merchants.slice(0, 5)}
-                    loading={loading}
-                    onEdit={handleEdit}
-                    onDelete={handleDelete}
-                  />
+                  <div className="flex justify-between items-center py-4 border-b border-amber-500/10">
+                    <span className="text-gray-400 font-light">Growth Rate</span>
+                    <span className="text-2xl font-thin text-green-400">+24%</span>
+                  </div>
+                  <div className="flex justify-between items-center py-4 border-b border-amber-500/10">
+                    <span className="text-gray-400 font-light">Active Merchants</span>
+                    <span className="text-2xl font-thin text-white">{merchants.filter(m => m.status === 'Active').length}</span>
+                  </div>
                 </div>
               </div>
               
-              <div className="space-y-6">
-                <div className="bg-gray-800 border border-gray-700 rounded-xl shadow-xl p-6">
-                  <h3 className="text-lg font-semibold text-white mb-4">Quick Actions</h3>
-                  <div className="space-y-3">
-                    <button
-                      onClick={() => setShowForm(true)}
-                      className="w-full bg-blue-600/20 border border-blue-600/30 text-blue-300 px-4 py-3 rounded-lg hover:bg-blue-600/30 transition-colors text-left flex items-center gap-3"
-                    >
-                      <span className="text-blue-400">+</span>
-                      <span>Add New Merchant</span>
-                    </button>
-                    <button
-                      onClick={() => {
-                        setActiveTab('analytics');
-                        router.push('?tab=analytics');
-                      }}
-                      className="w-full bg-purple-600/20 border border-purple-600/30 text-purple-300 px-4 py-3 rounded-lg hover:bg-purple-600/30 transition-colors text-left flex items-center gap-3"
-                    >
-                      <span className="text-purple-400">📊</span>
-                      <span>View Analytics</span>
-                    </button>
+              <div className="bg-black/40 border border-amber-500/20 backdrop-blur-sm p-8">
+                <h3 className="text-2xl font-light text-white mb-6 tracking-wider">INSIGHTS</h3>
+                <div className="space-y-6">
+                  <div className="p-4 border border-amber-500/10">
+                    <div className="text-sm text-gray-400 mb-2">TOP PERFORMER</div>
+                    <div className="text-lg font-light text-white">Premium Merchants</div>
+                    <div className="text-amber-400 text-sm">+18% this month</div>
+                  </div>
+                  <div className="p-4 border border-amber-500/10">
+                    <div className="text-sm text-gray-400 mb-2">TRENDING</div>
+                    <div className="text-lg font-light text-white">New Registrations</div>
+                    <div className="text-green-400 text-sm">+32% increase</div>
                   </div>
                 </div>
-                
-                <div className="bg-gray-800 border border-gray-700 rounded-xl shadow-xl p-6">
-                  <h3 className="text-lg font-semibold text-white mb-4">System Status</h3>
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-300">API Status</span>
-                      <span className="text-green-400 flex items-center gap-2">
-                        <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                        Online
-                      </span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-300">Database</span>
-                      <span className="text-green-400 flex items-center gap-2">
-                        <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                        Connected
-                      </span>
-                    </div>
+              </div>
+            </div>
+            
+            <div className="bg-black/40 border border-amber-500/20 backdrop-blur-sm p-8">
+              <h3 className="text-2xl font-light text-white mb-6 tracking-wider">RECENT ACTIVITY</h3>
+              <div className="space-y-4">
+                <div className="flex justify-between items-center py-3 border-b border-amber-500/10">
+                  <div>
+                    <div className="text-white font-light">New merchant registration</div>
+                    <div className="text-gray-400 text-sm">Premium Electronics Co.</div>
                   </div>
+                  <div className="text-gray-500 text-sm">2 hours ago</div>
+                </div>
+                <div className="flex justify-between items-center py-3 border-b border-amber-500/10">
+                  <div>
+                    <div className="text-white font-light">Status update</div>
+                    <div className="text-gray-400 text-sm">Luxury Goods Ltd. activated</div>
+                  </div>
+                  <div className="text-gray-500 text-sm">4 hours ago</div>
+                </div>
+                <div className="flex justify-between items-center py-3 border-b border-amber-500/10">
+                  <div>
+                    <div className="text-white font-light">System maintenance</div>
+                    <div className="text-gray-400 text-sm">Database optimization completed</div>
+                  </div>
+                  <div className="text-gray-500 text-sm">6 hours ago</div>
                 </div>
               </div>
             </div>
@@ -452,21 +450,114 @@ export default function Home() {
 
         {activeTab === 'analytics' && (
           <div className="space-y-8">
-            <div className="text-center">
-              <h2 className="text-3xl font-bold text-white mb-2">Analytics & Insights</h2>
-              <p className="text-gray-300">Deep dive into your data</p>
+            <div className="flex justify-between items-center">
+              <div>
+                <h2 className="text-4xl font-thin text-white mb-2 tracking-wider">ANALYTICS</h2>
+                <p className="text-gray-500 font-light">Advanced insights and data intelligence</p>
+              </div>
+              <div className="flex gap-3">
+                <button className="border border-amber-500/30 text-amber-400 px-6 py-2 hover:bg-amber-500/10 transition-all duration-300 text-xs tracking-wider">
+                  EXPORT DATA
+                </button>
+                <button className="bg-amber-600 text-black px-6 py-2 hover:bg-amber-500 transition-all duration-300 text-xs tracking-wider">
+                  GENERATE REPORT
+                </button>
+              </div>
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <div className="bg-gray-800 border border-gray-700 rounded-xl shadow-xl p-6">
-                <h3 className="text-lg font-semibold text-white mb-4">Growth Metrics</h3>
-                <div className="h-64 flex items-center justify-center text-gray-400 bg-gray-900 rounded-lg">
-                  📈 Advanced charts coming soon
+            
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <div className="bg-black/40 border border-amber-500/20 backdrop-blur-sm p-6">
+                <h3 className="text-lg font-light text-white mb-4 tracking-wider">REVENUE TREND</h3>
+                <div className="h-48 relative">
+                  <div className="absolute bottom-0 left-0 w-full flex items-end justify-between gap-2">
+                    {[65, 45, 78, 52, 89, 67, 94].map((height, i) => (
+                      <div key={i} className="bg-gradient-to-t from-amber-600 to-amber-400 w-8 animate-pulse" style={{height: `${height}%`, animationDelay: `${i * 0.2}s`}}></div>
+                    ))}
+                  </div>
+                  <div className="absolute top-4 right-4 text-2xl font-thin text-amber-400">+24%</div>
                 </div>
               </div>
-              <div className="bg-gray-800 border border-gray-700 rounded-xl shadow-xl p-6">
-                <h3 className="text-lg font-semibold text-white mb-4">Performance Stats</h3>
-                <div className="h-64 flex items-center justify-center text-gray-400 bg-gray-900 rounded-lg">
-                  🎯 Interactive dashboards coming soon
+              
+              <div className="bg-black/40 border border-amber-500/20 backdrop-blur-sm p-6">
+                <h3 className="text-lg font-light text-white mb-4 tracking-wider">MERCHANT GROWTH</h3>
+                <div className="h-48 flex items-center justify-center relative">
+                  <div className="w-32 h-32 border-4 border-amber-500/20 rounded-full relative">
+                    <div className="w-32 h-32 border-4 border-amber-400 rounded-full absolute top-0 left-0" style={{clipPath: 'polygon(0 0, 75% 0, 75% 100%, 0 100%)'}}></div>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-2xl font-thin text-white">75%</span>
+                    </div>
+                  </div>
+                  <div className="absolute bottom-4 text-sm text-gray-400">Active Merchants</div>
+                </div>
+              </div>
+              
+              <div className="bg-black/40 border border-amber-500/20 backdrop-blur-sm p-6">
+                <h3 className="text-lg font-light text-white mb-4 tracking-wider">PERFORMANCE</h3>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-400 text-sm">Conversion Rate</span>
+                    <span className="text-green-400 font-light">12.4%</span>
+                  </div>
+                  <div className="w-full bg-gray-800 h-2">
+                    <div className="bg-gradient-to-r from-green-600 to-green-400 h-2 w-3/4 animate-pulse"></div>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-400 text-sm">Customer Satisfaction</span>
+                    <span className="text-amber-400 font-light">94.2%</span>
+                  </div>
+                  <div className="w-full bg-gray-800 h-2">
+                    <div className="bg-gradient-to-r from-amber-600 to-amber-400 h-2 w-11/12 animate-pulse" style={{animationDelay: '0.5s'}}></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div className="bg-black/40 border border-amber-500/20 backdrop-blur-sm p-8">
+                <h3 className="text-2xl font-light text-white mb-6 tracking-wider">MARKET INSIGHTS</h3>
+                <div className="space-y-6">
+                  <div className="flex items-center justify-between py-4 border-b border-amber-500/10">
+                    <div>
+                      <div className="text-white font-light">Top Category</div>
+                      <div className="text-gray-400 text-sm">Premium Electronics</div>
+                    </div>
+                    <div className="text-amber-400 text-xl font-thin">42%</div>
+                  </div>
+                  <div className="flex items-center justify-between py-4 border-b border-amber-500/10">
+                    <div>
+                      <div className="text-white font-light">Peak Hours</div>
+                      <div className="text-gray-400 text-sm">2PM - 6PM</div>
+                    </div>
+                    <div className="text-green-400 text-xl font-thin">+18%</div>
+                  </div>
+                  <div className="flex items-center justify-between py-4">
+                    <div>
+                      <div className="text-white font-light">Avg. Transaction</div>
+                      <div className="text-gray-400 text-sm">Per merchant</div>
+                    </div>
+                    <div className="text-white text-xl font-thin">$2,847</div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-black/40 border border-amber-500/20 backdrop-blur-sm p-8">
+                <h3 className="text-2xl font-light text-white mb-6 tracking-wider">FORECASTING</h3>
+                <div className="space-y-6">
+                  <div className="p-4 border border-amber-500/10">
+                    <div className="text-sm text-gray-400 mb-2">NEXT QUARTER PROJECTION</div>
+                    <div className="text-2xl font-thin text-amber-400 mb-1">$3.2M</div>
+                    <div className="text-green-400 text-sm">+33% growth expected</div>
+                  </div>
+                  <div className="p-4 border border-amber-500/10">
+                    <div className="text-sm text-gray-400 mb-2">NEW MERCHANTS</div>
+                    <div className="text-2xl font-thin text-white mb-1">127</div>
+                    <div className="text-amber-400 text-sm">Projected additions</div>
+                  </div>
+                  <div className="p-4 border border-amber-500/10">
+                    <div className="text-sm text-gray-400 mb-2">MARKET EXPANSION</div>
+                    <div className="text-2xl font-thin text-white mb-1">3</div>
+                    <div className="text-blue-400 text-sm">New regions targeted</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -500,6 +591,15 @@ export default function Home() {
         </div>
       )}
       </div>
+      <style jsx>{`
+        @keyframes moveBackground {
+          0% { transform: translateX(0) translateY(0); }
+          25% { transform: translateX(-30px) translateY(-15px); }
+          50% { transform: translateX(-60px) translateY(-30px); }
+          75% { transform: translateX(-30px) translateY(-45px); }
+          100% { transform: translateX(0) translateY(-60px); }
+        }
+      `}</style>
     </div>
   );
 }
