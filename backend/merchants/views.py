@@ -2,6 +2,10 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.db.models import Q
+from django.http import HttpResponse
+import csv
+import json
+from datetime import datetime
 from .models import Merchant
 from .serializers import MerchantSerializer
 
@@ -103,3 +107,61 @@ class MerchantViewSet(viewsets.ModelViewSet):
             'pending': pending,
             'suspended': suspended
         })
+    
+    @action(detail=False, methods=['get'])
+    def export_csv(self, request):
+        """Export merchants data as CSV."""
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = f'attachment; filename="merchants_export_{datetime.now().strftime("%Y%m%d_%H%M%S")}.csv"'
+        
+        writer = csv.writer(response)
+        writer.writerow(['ID', 'Name', 'Email', 'Phone', 'Business Registration Number', 'Status', 'Created At', 'Updated At'])
+        
+        merchants = self.get_queryset()
+        for merchant in merchants:
+            writer.writerow([
+                merchant.id,
+                merchant.name,
+                merchant.email,
+                merchant.phone,
+                merchant.business_registration_number,
+                merchant.status,
+                merchant.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+                merchant.updated_at.strftime('%Y-%m-%d %H:%M:%S')
+            ])
+        
+        return response
+    
+    @action(detail=False, methods=['get'])
+    def generate_report(self, request):
+        """Generate comprehensive merchant report."""
+        merchants = self.get_queryset()
+        total = merchants.count()
+        active = merchants.filter(status='Active').count()
+        pending = merchants.filter(status='Pending').count()
+        suspended = merchants.filter(status='Suspended').count()
+        
+        # Calculate percentages
+        active_percentage = (active / total * 100) if total > 0 else 0
+        pending_percentage = (pending / total * 100) if total > 0 else 0
+        suspended_percentage = (suspended / total * 100) if total > 0 else 0
+        
+        report_data = {
+            'report_generated_at': datetime.now().isoformat(),
+            'summary': {
+                'total_merchants': total,
+                'active_merchants': active,
+                'pending_merchants': pending,
+                'suspended_merchants': suspended,
+                'active_percentage': round(active_percentage, 2),
+                'pending_percentage': round(pending_percentage, 2),
+                'suspended_percentage': round(suspended_percentage, 2)
+            },
+            'merchants': MerchantSerializer(merchants, many=True).data
+        }
+        
+        response = HttpResponse(content_type='application/json')
+        response['Content-Disposition'] = f'attachment; filename="merchant_report_{datetime.now().strftime("%Y%m%d_%H%M%S")}.json"'
+        response.write(json.dumps(report_data, indent=2))
+        
+        return response

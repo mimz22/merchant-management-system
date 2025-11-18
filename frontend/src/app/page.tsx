@@ -464,10 +464,28 @@ export default function Home() {
                 <p className="text-gray-500 font-light">Advanced insights and data intelligence</p>
               </div>
               <div className="flex gap-3">
-                <button className="border border-amber-500/30 text-amber-400 px-6 py-2 hover:bg-amber-500/10 transition-all duration-300 text-xs tracking-wider">
+                <button 
+                  onClick={async () => {
+                    try {
+                      await merchantService.exportCSV();
+                    } catch (err: any) {
+                      setError(err.message || 'Failed to export data');
+                    }
+                  }}
+                  className="border border-amber-500/30 text-amber-400 px-6 py-2 hover:bg-amber-500/10 transition-all duration-300 text-xs tracking-wider"
+                >
                   EXPORT DATA
                 </button>
-                <button className="bg-amber-600 text-black px-6 py-2 hover:bg-amber-500 transition-all duration-300 text-xs tracking-wider">
+                <button 
+                  onClick={async () => {
+                    try {
+                      await merchantService.generateReport();
+                    } catch (err: any) {
+                      setError(err.message || 'Failed to generate report');
+                    }
+                  }}
+                  className="bg-amber-600 text-black px-6 py-2 hover:bg-amber-500 transition-all duration-300 text-xs tracking-wider"
+                >
                   GENERATE REPORT
                 </button>
               </div>

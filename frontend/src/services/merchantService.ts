@@ -69,4 +69,56 @@ export const merchantService = {
       throw new Error(error.response?.data?.message || 'Failed to fetch statistics');
     }
   },
+
+  exportCSV: async (): Promise<void> => {
+    try {
+      const response = await api.get('/merchants/export_csv/', {
+        responseType: 'blob'
+      });
+      
+      const blob = new Blob([response.data], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      
+      const contentDisposition = response.headers['content-disposition'];
+      const filename = contentDisposition
+        ? contentDisposition.split('filename=')[1].replace(/"/g, '')
+        : `merchants_export_${new Date().toISOString().slice(0, 10)}.csv`;
+      
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || 'Failed to export data');
+    }
+  },
+
+  generateReport: async (): Promise<void> => {
+    try {
+      const response = await api.get('/merchants/generate_report/', {
+        responseType: 'blob'
+      });
+      
+      const blob = new Blob([response.data], { type: 'application/json' });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      
+      const contentDisposition = response.headers['content-disposition'];
+      const filename = contentDisposition
+        ? contentDisposition.split('filename=')[1].replace(/"/g, '')
+        : `merchant_report_${new Date().toISOString().slice(0, 10)}.json`;
+      
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || 'Failed to generate report');
+    }
+  },
 };
