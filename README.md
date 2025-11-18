@@ -576,10 +576,3 @@ MIT License - see [LICENSE](LICENSE) file for details.
 - GitHub: [@mimz22](https://github.com/mimz22)
 - LinkedIn: [Mimi Oppong](https://linkedin.com/in/mimi-oppong)
 
-## 🙏 Acknowledgments
-
-- Django REST Framework documentation
-- Next.js team for excellent React framework
-- Tailwind CSS for utility-first styling
-- PostgreSQL community
-- Docker for containerization
