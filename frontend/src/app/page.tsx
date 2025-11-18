@@ -8,6 +8,14 @@ import Statistics from '@/components/Statistics';
 import { Merchant } from '@/types/merchant';
 import { merchantService } from '@/services/merchantService';
 
+// Footer configuration
+const FOOTER_CONFIG = {
+  githubUsername: 'mimz22',
+  repositoryName: 'merchant-management-system',
+  authorName: 'Mimi Oppong',
+  year: new Date().getFullYear()
+};
+
 export default function Home() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -468,26 +476,29 @@ export default function Home() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               <div className="bg-black/40 border border-amber-500/20 backdrop-blur-sm p-6">
                 <h3 className="text-lg font-light text-white mb-4 tracking-wider">REVENUE TREND</h3>
-                <div className="h-48 relative">
+                <div className="h-44 relative">
                   <div className="absolute bottom-0 left-0 w-full flex items-end justify-between gap-2">
                     {[65, 45, 78, 52, 89, 67, 94].map((height, i) => (
                       <div key={i} className="bg-gradient-to-t from-amber-600 to-amber-400 w-8 animate-pulse" style={{height: `${height}%`, animationDelay: `${i * 0.2}s`}}></div>
                     ))}
                   </div>
-                  <div className="absolute top-4 right-4 text-2xl font-thin text-amber-400">+24%</div>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="text-2xl font-thin text-amber-400">+24%</div>
+                  </div>
                 </div>
               </div>
               
               <div className="bg-black/40 border border-amber-500/20 backdrop-blur-sm p-6">
                 <h3 className="text-lg font-light text-white mb-4 tracking-wider">MERCHANT GROWTH</h3>
-                <div className="h-48 flex items-center justify-center relative">
+                <div className="h-44 flex flex-col items-center justify-center relative">
                   <div className="w-32 h-32 border-4 border-amber-500/20 rounded-full relative">
-                    <div className="w-32 h-32 border-4 border-amber-400 rounded-full absolute top-0 left-0" style={{clipPath: 'polygon(0 0, 75% 0, 75% 100%, 0 100%)'}}></div>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-2xl font-thin text-white">75%</span>
+                    <div className="w-32 h-32 border-4 border-amber-400 rounded-full absolute -top-1 -left-1" style={{clipPath: 'circle(75% at 50% 50%)'}}></div>
+                    <div className="absolute inset-0 flex flex-col items-center justify-center">
+                      <span className="text-2xl font-thin text-amber-400">75%</span>
+                      <span className="text-sm font-thin text-white">Active</span>
                     </div>
                   </div>
-                  <div className="absolute bottom-4 text-sm text-gray-400">Active Merchants</div>
+                  <div className="mt-4 text-sm text-gray-400">Merchant Status</div>
                 </div>
               </div>
               
@@ -590,6 +601,32 @@ export default function Home() {
           </div>
         </div>
       )}
+      
+      {/* Footer */}
+      <footer className="border-t border-amber-500/20 bg-black/95 backdrop-blur-md mt-20">
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <div className="text-center md:text-left">
+              <div className="text-white font-light tracking-wider mb-2">
+                <span className="font-thin">MERCHANT</span>
+                <span className="text-amber-400 font-extralight mx-1">HUB</span>
+              </div>
+              <p className="text-gray-500 text-sm font-light">Premium business management platform</p>
+            </div>
+            <div className="text-center md:text-right">
+              <p className="text-gray-500 text-sm font-light mb-1">
+                Licensed under the <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener noreferrer" className="text-amber-400 hover:text-amber-300 transition-colors">MIT License</a>
+              </p>
+              <p className="text-gray-600 text-xs font-light mb-1">
+                © {FOOTER_CONFIG.year} MerchantHub. Built with ❤️ by <a href={`https://github.com/${FOOTER_CONFIG.githubUsername}`} target="_blank" rel="noopener noreferrer" className="text-amber-400 hover:text-amber-300 transition-colors font-medium">@{FOOTER_CONFIG.githubUsername}</a>
+              </p>
+              <p className="text-gray-700 text-xs font-light">
+                <a href={`https://github.com/${FOOTER_CONFIG.githubUsername}/${FOOTER_CONFIG.repositoryName}`} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-amber-400 transition-colors">View on GitHub</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
       </div>
       <style jsx>{`
         @keyframes moveBackground {
